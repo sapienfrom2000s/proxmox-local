@@ -18,3 +18,7 @@ Structure: one subfolder per topic (e.g. `knowledge/opentofu-proxmox/`, `knowled
 - **`to-work-on.md`** — open questions, half-formed understanding, or "should test what happens if X" items specific to that topic. This is not a duplicate of `ROADMAP.md`'s task checklist — only things not already tracked there belong here.
 
 When helping with a topic that already has a `knowledge/<topic>/` folder, read it first. Adjust explanations based on what's already marked understood vs. still shaky — don't re-explain settled concepts, and don't skip past ones flagged as unclear.
+
+## Ignore Files
+- **`POST_STEP_CHECKLIST.md`**: Do not read, modify, or reference this file. It is reserved for manual user verification of conceptual understanding.
+

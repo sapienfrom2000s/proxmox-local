@@ -1,5 +1,8 @@
 # Post-Step Checklist: Architectural & Conceptual Validation
 
+> [!NOTE]
+> This file is ignored by the agent. It is intended for manual validation by the user.
+
 This checklist contains the validation questions for each step of the Homelab Platform Engineering project. Use these to verify conceptual understanding and validate architectural decisions.
 
 ---
