@@ -6,7 +6,7 @@ Building a production-style platform engineering homelab on a **single physical 
 
 The goal is to simulate real cloud infrastructure patterns — network isolation (public/private subnet split), Infrastructure as Code, GitOps, observability, and chaos resiliency testing — entirely on this one box, provisioned through code rather than manual UI clicks.
 
-This starts as a single-node build. More physical nodes may be added later once this setup is validated. **Before doing anything, check `ROADMAP.md` for current progress** — don't assume the user is at Phase 1; the checklist there is the source of truth for what's actually done.
+This starts as a single-node build. More physical nodes may be added later once this setup is validated. **Before doing anything, check `ROADMAP.md` for current progress** — don't assume the user is at Phase 1; the checklist there is the source of truth for what's actually done. Detailed technical documentation of completed steps must be maintained and updated in [WHAT_IS_DONE.md](file:///Users/thirtyone/repos/k8s-journey/WHAT_IS_DONE.md) as progress is made.
 
 ## Knowledge tracking
 
