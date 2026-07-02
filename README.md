@@ -81,6 +81,9 @@ The single-node physical architecture simulates a cloud-like Virtual Private Clo
 
 ```text
 ├── .agents/               # Agent configuration, rules, and skills
+├── code/                  # All project code
+│   └── iac/               # Infrastructure as Code (OpenTofu, etc.)
+├── topics/                # 80/20 concept guides for each technology in the stack
 ├── ROADMAP.md             # The master checklist of phases and project milestones
 ├── WHAT_IS_DONE.md        # Detailed log of implemented configurations and decisions
 ├── POST_STEP_CHECKLIST.md # Conceptual validation and learning verification
@@ -94,3 +97,4 @@ The single-node physical architecture simulates a cloud-like Virtual Private Clo
 To see our current progress, please refer to the following documents:
 - **Project Roadmap & Tasks**: Refer to [ROADMAP.md](file:///Users/thirtyone/repos/proxmox-local/ROADMAP.md) to check what phases are planned and what tasks are currently active.
 - **Completed Implementations**: Review [WHAT_IS_DONE.md](file:///Users/thirtyone/repos/proxmox-local/WHAT_IS_DONE.md) for concrete details and configurations of completed tasks.
+- **Topic Guides**: Browse [topics/](file:///Users/thirtyone/repos/proxmox-local/topics/) for 80/20 concept breakdowns of each technology used in this project.
