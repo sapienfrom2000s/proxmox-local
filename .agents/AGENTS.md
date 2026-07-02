@@ -10,14 +10,9 @@ This starts as a single-node build. More physical nodes may be added later once 
 
 ## Knowledge tracking
 
-The `knowledge/` folder tracks what the user actually understands, separate from `ROADMAP.md` (which only tracks whether a task got *done*, not whether it was understood).
+See [`knowledge/README.md`](file:///Users/thirtyone/repos/proxmox-local/knowledge/README.md) for the full knowledge system rules and structure.
 
-Structure: one subfolder per topic (e.g. `knowledge/opentofu-proxmox/`, `knowledge/cilium-cni/`, `knowledge/argocd/`) — granular by concept, not by phase, since that's how the "questions you should be able to answer" in `ROADMAP.md` are actually organized. Each topic folder contains two files:
-
-- **`learnings.md`** — dated entries of what's actually understood, in the user's own words, plus what caused confusion and what fixed it. This is a comprehension log, not copy-pasted documentation.
-- **`to-work-on.md`** — open questions, half-formed understanding, or "should test what happens if X" items specific to that topic. This is not a duplicate of `ROADMAP.md`'s task checklist — only things not already tracked there belong here.
-
-When helping with a topic that already has a `knowledge/<topic>/` folder, read it first. Adjust explanations based on what's already marked understood vs. still shaky — don't re-explain settled concepts, and don't skip past ones flagged as unclear.
+**Rule**: When helping with a topic that has a `knowledge/<topic>/` folder, read `learnings.md` and `to-work-on.md` first before explaining anything.
 
 ## Ignore Files
 - **`POST_STEP_CHECKLIST.md`**: Do not read, modify, or reference this file. It is reserved for manual user verification of conceptual understanding.
