@@ -22,3 +22,6 @@ When helping with a topic that already has a `knowledge/<topic>/` folder, read i
 ## Ignore Files
 - **`POST_STEP_CHECKLIST.md`**: Do not read, modify, or reference this file. It is reserved for manual user verification of conceptual understanding.
 
+## Diagram Rules
+- **Use ASCII Diagrams**: Always use ASCII art/diagrams instead of Mermaid for visual representation.
+
