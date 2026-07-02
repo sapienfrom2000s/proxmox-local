@@ -25,3 +25,10 @@ When helping with a topic that already has a `knowledge/<topic>/` folder, read i
 ## Diagram Rules
 - **Use ASCII Diagrams**: Always use ASCII art/diagrams instead of Mermaid for visual representation.
 
+## Documentation Checks
+- **Core Document Synchronization**: Whenever any change is made, proactively check if you need to update/modify:
+  - `AGENTS.md` (rules and context)
+  - `README.md` (high-level introduction and architecture diagrams)
+  - `ROADMAP.md` (milestone checklist status)
+  - `WHAT_IS_DONE.md` (technical details of implemented progress)
+
