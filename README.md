@@ -6,14 +6,6 @@ The goal of this project is to model real-world cloud infrastructure patterns—
 
 ---
 
-## 🚀 Key Objectives & Philosophy
-
-- **Enterprise Network Isolation**: A split public/private subnet topology simulated via Proxmox bridges, routing all internal VM traffic through a dedicated dual-homed Gateway VM.
-- **GitOps-Driven Application Delivery**: Applications and cluster configurations are continuously reconciled via ArgoCD against Git.
-- **Measurable Resiliency**: Incorporating active chaos testing (e.g., hard-killing nodes under load) to measure recovery windows and validate HA configurations.
-
----
-
 ## 🛠️ Technology Stack
 
 | Layer | Technology | Purpose |
