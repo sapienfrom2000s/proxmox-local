@@ -6,7 +6,7 @@ OpenTofu configurations for provisioning VMs on Proxmox VE.
 
 ## VM Specifications
 
-All VMs run **Debian 13 (Trixie)** and use **LVM** storage.
+All VMs run **Debian 13 (Trixie)** and use **local-lvm** storage (Proxmox default).
 
 | VM Name | Role          | RAM   | Disk  |
 |---------|---------------|-------|-------|

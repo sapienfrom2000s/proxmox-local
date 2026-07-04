@@ -11,9 +11,6 @@ knowledge/
 ├── opentofu/
 │   ├── learnings.md
 │   └── to-work-on.md
-├── cilium-cni/
-│   ├── learnings.md
-│   └── to-work-on.md
 └── ...
 ```
 
