@@ -2,7 +2,7 @@
 
 A production-style platform engineering homelab built on a single physical HP Mini PC running **Proxmox VE**, utilizing **Debian 13** as the base OS for all virtual machines. 
 
-The goal of this project is to model real-world cloud infrastructure patterns—such as network isolation, Infrastructure as Code (IaC), GitOps, comprehensive observability, and chaos resiliency testing—entirely on a single node, provisioned declaratively through code rather than manual UI clicks.
+The goal of this project is to model real-world cloud infrastructure patterns—such as Infrastructure as Code (IaC), GitOps, comprehensive observability, and chaos resiliency testing—entirely on a single node, provisioned declaratively through code rather than manual UI clicks.
 
 ---
 
@@ -15,7 +15,7 @@ The goal of this project is to model real-world cloud infrastructure patterns—
 | **Infrastructure as Code** | [OpenTofu](https://opentofu.org/) | Open-source fork of Terraform for VM lifecycle management |
 | **Configuration Management** | [Ansible](https://www.ansible.com/) | VM post-provisioning, hardening, and package installation |
 | **Secrets Management** | Ansible Vault | Safe encryption of tokens, SSH keys, and credentials |
-| **Networking & Routing** | Linux Bridges, HAProxy/Nginx, CoreDNS | Public/private subnet split, reverse proxy, local `*.local` DNS |
+| **Networking & Routing** | Linux Bridges, HAProxy/Nginx, CoreDNS | Reverse proxy, local `*.local` DNS |
 | **Container Orchestration** | [K3s](https://k3s.io/) | Lightweight Kubernetes distribution (1x Control Plane, 2x Workers) |
 | **GitOps Engine** | [ArgoCD](https://argoproj.github.io/cd/) | Continuous delivery and sync tool |
 | **Observability & Telemetry**| Prometheus & Grafana | Telemetry collection, system metrics, and dashboarding |
@@ -24,44 +24,28 @@ The goal of this project is to model real-world cloud infrastructure patterns—
 
 ## 🌐 Architecture Overview
 
-The single-node physical architecture simulates a cloud-like Virtual Private Cloud (VPC):
+All VMs are attached directly to the host bridge and receive IPs from the home network:
 
 ```text
-                     +-----------------------------------+
-                     |        WAN / Home Network         |
-                     |     [Physical Router / DHCP]      |
-                     +-----------------+-----------------+
-                                       |
+                      +-----------------------------------+
+                      |        WAN / Home Network         |
+                      |     [Physical Router / DHCP]      |
+                      +-----------------+-----------------+
+                                        |
   ============================= Host / Proxmox VE =============================
-                                       |
-                               +-------v-------+
-                               |     vmbr0     | (Public Bridge)
-                               +-------+-------+
-                                       | (Public IP)
-                        +--------------v--------------+
-                        |         Gateway VM          |
-                        |                             |
-                        |   +---------------------+   |
-                        |   |  iptables NAT /     |   |
-                        |   |  Masquerading       |   |
-                        |   +----------+----------+   |
-                        |              |              |
-                        |   +----------v----------+   |
-                        |   | HAProxy OSS Proxy   |   |
-                        |   | CoreDNS Server      |   |
-                        |   +---------------------+   |
-                        +--------------+--------------+
-                                       | (10.0.0.1)
-                               +-------v-------+
-                               |     vmbr1     | (Isolated Private Bridge)
-                               +-------+-------+
-                                       |
-                 +---------------------+---------------------+
-                 | (10.0.0.10)         | (10.0.0.11)         | (10.0.0.12)
-         +-------v-------+     +-------v-------+     +-------v-------+
-         |    K3s CP     |     |  K3s Worker 1 |     |  K3s Worker 2 |
-         | (Control Plane)     |               |     |               |
-         +---------------+     +---------------+     +---------------+
+                                        |
+                                +-------v-------+
+                                |     vmbr0     | (Public Bridge)
+                                +-------+-------+
+                                        |
+          +-----------------------------+-----------------------------+
+          |                             |                             |
+  +-------v-------+             +-------v-------+             +-------v-------+
+  |    K3s CP     |             |  K3s Worker 1 |             |  K3s Worker 2 |
+  | (Control      |             |               |             |               |
+  |  Plane)       |             |               |             |               |
+  | 192.168.1.10  |             | 192.168.1.11  |             | 192.168.1.12  |
+  +---------------+             +---------------+             +---------------+
   =============================================================================
 ```
 
