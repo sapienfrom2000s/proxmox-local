@@ -58,25 +58,36 @@ wget -P /tmp https://cloud.debian.org/images/cloud/trixie/latest/debian-13-gener
 A **template** is a frozen, read-only VM that acts as a stamp. OpenTofu clones this template to create each new VM, instead of installing Debian from scratch every time.
 
 ```bash
-# Create a new VM (ID 9000) that will become our template
+# Allocates a new VM with ID 9000, names it debian-13-cloud, gives it 2GB RAM,
+# and attaches a single virtio NIC to bridge vmbr0. No disk yet — just a shell.
 qm create 9000 --name debian-13-cloud --memory 2048 --net0 virtio,bridge=vmbr0
 
-# Import the downloaded cloud image as a disk into local-lvm storage
+# Takes the downloaded cloud image (.qcow2) and copies it into Proxmox's
+# local-lvm storage as a raw disk volume attached to VM 9000. Creates
+# a volume like vm-9000-disk-0.
 qm importdisk 9000 /tmp/debian-13-generic-amd64.qcow2 local-lvm
 
-# Attach the imported disk as the primary SCSI drive
+# Attaches the imported disk as the VM's primary SCSI drive (scsi0) using
+# the virtio-SCSI controller — better performance than IDE/SATA.
 qm set 9000 --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-9000-disk-0
 
-# Add a Cloud-Init drive (this is where Cloud-Init reads its config from)
+# Adds a small Cloud-Init drive on ide2 (a CD-ROM-like device). On first
+# boot, the VM reads Cloud-Init config (hostname, SSH key, network) from
+# this drive and applies it.
 qm set 9000 --ide2 local-lvm:cloudinit
 
-# Set the boot order to boot from the SCSI disk
+# Sets boot order: 'c' = first HDD (the SCSI disk). --bootdisk scsi0
+# explicitly marks which disk is the boot device.
 qm set 9000 --boot c --bootdisk scsi0
 
-# Enable the serial console (required for Cloud-Init to report back)
+# Enables a serial console (serial0) and routes VGA output through it.
+# Cloud-Init uses the serial console to report status — without this,
+# you can't tell if Cloud-Init succeeded on first boot.
 qm set 9000 --serial0 socket --vga serial0
 
-# Convert the VM into an immutable template
+# Freezes VM 9000 into a read-only template. After this, the VM cannot
+# be started or modified — it can only be cloned. This is the stamp
+# that OpenTofu clones 3 times to create cp, alpha, and beta.
 qm template 9000
 ```
 
