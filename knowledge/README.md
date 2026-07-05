@@ -11,6 +11,9 @@ knowledge/
 ├── opentofu/
 │   ├── learnings.md
 │   └── to-work-on.md
+├── proxmox/
+│   ├── learnings.md
+│   └── to-work-on.md
 └── ...
 ```
 
