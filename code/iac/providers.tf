@@ -4,7 +4,7 @@ provider "proxmox" {
   insecure  = var.skip_tls_verify
 
   ssh {
-    password = var.proxmox_ssh_password
+    agent    = true
     username = "root"
   }
 }

@@ -27,12 +27,6 @@ variable "template_id" {
   description = "ID of the pre-created VM template to clone from"
 }
 
-variable "proxmox_ssh_password" {
-  type        = string
-  sensitive   = true
-  description = "Root password for SSH-based node operations on Proxmox"
-}
-
 variable "ssh_public_key" {
   type        = string
   description = "Public SSH key injected into VMs via Cloud-Init"
