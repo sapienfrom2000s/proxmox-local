@@ -53,22 +53,7 @@ Cloud images are pre-built, minimal OS images designed for automated provisionin
 wget -P /tmp https://cloud.debian.org/images/cloud/trixie/latest/debian-13-generic-amd64.qcow2
 ```
 
-#### 1.3 Install Required Packages in the Cloud Image
-
-The Debian cloud image is minimal. Install `qemu-guest-agent` so Proxmox can report accurate resource usage and IPs from cloned VMs.
-
-```bash
-# Install libguestfs-tools (if not already present)
-apt-get update && apt-get install -y libguestfs-tools
-
-# Customize the cloud image offline (no VM boot required)
-virt-customize -a /tmp/debian-13-generic-amd64.qcow2 \
-  --install qemu-guest-agent
-```
-
-> `virt-customize` modifies the `.qcow2` file in-place before it's imported into Proxmox. Every VM cloned from the template will already have `qemu-guest-agent` installed and ready.
-
-#### 1.4 Create a VM Template from the Cloud Image
+#### 1.3 Create a VM Template from the Cloud Image
 
 A **template** is a frozen, read-only VM that acts as a stamp. OpenTofu clones this template to create each new VM, instead of installing Debian from scratch every time.
 
