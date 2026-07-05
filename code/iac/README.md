@@ -30,7 +30,7 @@ OpenTofu talks to Proxmox through its REST API. Instead of using root credential
 
 ```bash
 # Create a role with the minimum permissions OpenTofu needs
-pveum role add TofuRole -privs "VM.Allocate VM.Clone VM.Config.CDROM VM.Config.CPU VM.Config.Cloudinit VM.Config.Disk VM.Config.HWType VM.Config.Memory VM.Config.Network VM.Config.Options VM.Audit VM.Monitor VM.PowerMgmt Datastore.AllocateSpace Datastore.Audit SDN.Use"
+pveum role add TofuRole -privs "VM.Allocate VM.Clone VM.Config.CDROM VM.Config.CPU VM.Config.Cloudinit VM.Config.Disk VM.Config.HWType VM.Config.Memory VM.Config.Network VM.Config.Options VM.Audit VM.PowerMgmt Datastore.AllocateSpace Datastore.Audit SDN.Use VM.GuestAgent.Audit VM.GuestAgent.Unrestricted"
 
 # Create a dedicated user
 pveum user add tofu@pve

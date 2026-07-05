@@ -30,10 +30,6 @@ resource "proxmox_virtual_environment_vm" "vm" {
   name      = each.value.name
   node_name = var.pm_node
 
-  agent {
-    enabled = true
-  }
-
   clone {
     vm_id   = var.template_id
     retries = 3
