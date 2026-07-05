@@ -7,7 +7,7 @@ template_id = 9000
 
 ssh_public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDF7Bgz85LYbTN5TwITFCosrweH5bKJfyS/MtfJLnO8+"
 
-vm_bridge   = "vmbr1"
+vm_bridge   = "vmbr0"
 gateway_ip  = "192.168.1.1"
 dns_servers = ["1.1.1.1", "8.8.8.8"]
 

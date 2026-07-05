@@ -1,6 +1,6 @@
 variable "proxmox_endpoint" {
   type        = string
-  description = "Proxmox VE API endpoint URL (e.g. https://10.0.0.1:8006/api2/json)"
+  description = "Proxmox VE API endpoint URL (e.g. https://192.168.1.9:8006/api2/json)"
 }
 
 variable "api_token" {
@@ -34,14 +34,14 @@ variable "ssh_public_key" {
 
 variable "vm_bridge" {
   type        = string
-  default     = "vmbr1"
-  description = "Private network bridge for VMs"
+  default     = "vmbr0"
+  description = "Network bridge for VMs"
 }
 
 variable "gateway_ip" {
   type        = string
-  default     = "10.0.0.1"
-  description = "Gateway VM IP address for the private network"
+  default     = "192.168.1.1"
+  description = "Gateway IP address (typically your router)"
 }
 
 variable "dns_servers" {
