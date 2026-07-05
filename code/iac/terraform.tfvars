@@ -1,5 +1,5 @@
 proxmox_endpoint = "https://192.168.1.9:8006/api2/json"
-api_token        = "c5b506ed-8f73-4bd7-b88b-05fbdc5e773c"
+api_token        = "tofu@pve!tofu-token=c5b506ed-8f73-4bd7-b88b-05fbdc5e773c"
 skip_tls_verify  = true
 
 pm_node     = "thirtyone"
