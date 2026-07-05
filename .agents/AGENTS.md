@@ -20,6 +20,9 @@ See [`knowledge/README.md`](file:///Users/thirtyone/repos/proxmox-local/knowledg
 ## Diagram Rules
 - **Use ASCII Diagrams**: Always use ASCII art/diagrams instead of Mermaid for visual representation.
 
+## Commit Discipline
+- **Never commit without asking first.** Stage changes (`git add`) for review, but do not commit unless the user explicitly says "commit" or "commit it".
+
 ## Documentation Checks
 - **Core Document Synchronization**: Whenever any change is made, proactively check if you need to update/modify:
   - `AGENTS.md` (rules and context)
