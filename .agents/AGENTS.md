@@ -20,6 +20,10 @@ See [`knowledge/README.md`](file:///Users/thirtyone/repos/proxmox-local/knowledg
 ## Diagram Rules
 - **Use ASCII Diagrams**: Always use ASCII art/diagrams instead of Mermaid for visual representation.
 
+## Linear Tickets
+
+When creating Linear tickets, read `docs/linear-issue-template.md` and follow its structure (What, Why, Request/Response Flow, Must know before implementing, Glossary).
+
 ## Documentation Checks
 - **Core Document Synchronization**: Whenever any change is made, proactively check if you need to update/modify:
   - `AGENTS.md` (rules and context)
