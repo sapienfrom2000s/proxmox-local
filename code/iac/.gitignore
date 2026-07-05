@@ -4,6 +4,10 @@
 # Crash logs
 crash.log
 
+# Variable files (contain secrets)
+*.tfvars
+!terraform.tfvars.example
+
 # Override files as they're user-specific
 override.tf
 override.tf.json
