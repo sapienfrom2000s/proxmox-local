@@ -14,6 +14,9 @@ knowledge/
 ├── proxmox/
 │   ├── learnings.md
 │   └── to-work-on.md
+├── lvm/
+│   ├── learnings.md
+│   └── to-work-on.md
 └── ...
 ```
 
