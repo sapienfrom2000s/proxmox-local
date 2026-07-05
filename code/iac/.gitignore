@@ -1,0 +1,11 @@
+# Provider plugin cache (platform-specific, ~50MB)
+.terraform/
+
+# Crash logs
+crash.log
+
+# Override files as they're user-specific
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
