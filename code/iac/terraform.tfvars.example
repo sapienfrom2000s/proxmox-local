@@ -1,16 +1,13 @@
-# Proxmox API connection
-proxmox_endpoint = "https://192.168.1.100:8006/api2/json"
-api_token        = "tofu@pve!tofu-token=CHANGEME"
-skip_tls_verify  = false
+# Proxmox API connection — sensitive values read from Doppler
+# See: scripts/tofu.sh
+# run: doppler run -- bash scripts/tofu.sh plan
+skip_tls_verify = false
 
 # Proxmox node
 pm_node = "pve"
 
 # VM template
 template_id = 9000
-
-# SSH access
-ssh_public_key = "ssh-ed25519 AAAAC3... your-public-key"
 
 # Networking
 vm_bridge   = "vmbr0"

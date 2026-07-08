@@ -13,9 +13,9 @@ PHASE 1: FOUNDATIONS & INFRASTRUCTURE AS CODE (IaC)
          - SSH key-only auth, disable root password login
          - kernel params (net.ipv4.ip_forward=1, etc.)
 
-[ ] 1.3  Secrets management via Ansible Vault:
-         - encrypt SSH keys, API tokens, TLS secrets, DB creds
-         - vault-id / password file kept OUT of git
+[x] 1.3  Secrets management via Doppler (cloud):
+          - SSH keys, Proxmox API token stored in Doppler
+          - injected via `doppler run` -> `scripts/tofu.sh`
 
 PHASE 2: PRODUCTION-GRADE KUBERNETES & GITOPS
 ------------------------------------------------
