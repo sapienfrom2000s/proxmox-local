@@ -19,8 +19,11 @@ PHASE 1: FOUNDATIONS & INFRASTRUCTURE AS CODE (IaC)
 
 PHASE 2: PRODUCTION-GRADE KUBERNETES & GITOPS
 ------------------------------------------------
-[ ] 2.1  K3s / kubeadm cluster
-         - 1x Control Plane, 2x Worker nodes
+[ ] 2.1  K3s cluster (chosen over kubeadm)
+         - 1x Server (cp), 2x Agents (alpha, beta)
+         - Embedded etcd (`--cluster-init`) chosen over default SQLite
+           for crash resilience on power loss
+         - See knowledge/k3s/learnings.md for rationale
 
 [ ] 2.2  ArgoCD (OSS) installed in-cluster
          - linked to a free-tier GitHub repo -> fully declarative deploys
