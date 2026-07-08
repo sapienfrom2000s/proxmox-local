@@ -24,8 +24,8 @@ Deliberately skipped.
 
 - Installed Doppler CLI (`brew install dopplerhq/cli/doppler`)
 - Created project `proxmox-local` with `dev` config
-- Stored secrets: `PROXMOX_ENDPOINT`, `PROXMOX_API_TOKEN`, `SSH_PUBLIC_KEY`, `SSH_PRIVATE_KEY`
-- Created `scripts/tofu.sh` wrapper that maps Doppler secrets to `TF_VAR_*` env vars for OpenTofu
+- Stored secrets: `TF_VAR_PROXMOX_ENDPOINT`, `TF_VAR_API_TOKEN`, `TF_VAR_SSH_PUBLIC_KEY`
+- Renamed Tofu variables to UPPER_CASE so `TF_VAR_*` names match directly (no wrapper needed)
 - Removed sensitive values from `terraform.tfvars` (kept only non-sensitive config)
-- Workflow: `doppler run -- bash scripts/tofu.sh plan|apply`
+- Workflow: `doppler run -- tofu plan|apply`
 - Sensitive values no longer exist on disk unencrypted

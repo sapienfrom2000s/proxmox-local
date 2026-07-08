@@ -1,6 +1,6 @@
 provider "proxmox" {
-  endpoint  = var.proxmox_endpoint
-  api_token = var.api_token
+  endpoint  = var.PROXMOX_ENDPOINT
+  api_token = var.API_TOKEN
   insecure  = var.skip_tls_verify
 
   ssh {

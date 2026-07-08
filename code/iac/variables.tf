@@ -1,9 +1,9 @@
-variable "proxmox_endpoint" {
+variable "PROXMOX_ENDPOINT" {
   type        = string
   description = "Proxmox VE API endpoint URL (e.g. https://192.168.1.9:8006/api2/json)"
 }
 
-variable "api_token" {
+variable "API_TOKEN" {
   type        = string
   sensitive   = true
   description = "Proxmox API token ID and secret (e.g. tofu@pve!tofu-token=uuid)"
@@ -27,7 +27,7 @@ variable "template_id" {
   description = "ID of the pre-created VM template to clone from"
 }
 
-variable "ssh_public_key" {
+variable "SSH_PUBLIC_KEY" {
   type        = string
   description = "Public SSH key injected into VMs via Cloud-Init"
 }
