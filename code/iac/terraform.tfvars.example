@@ -1,6 +1,5 @@
 # Proxmox API connection — sensitive values read from Doppler
-# See: scripts/tofu.sh
-# run: doppler run -- bash scripts/tofu.sh plan
+# run: doppler run -- tofu plan
 skip_tls_verify = false
 
 # Proxmox node
