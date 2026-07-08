@@ -9,7 +9,7 @@ PHASE 1: FOUNDATIONS & INFRASTRUCTURE AS CODE (IaC)
 [x] 1.1  OpenTofu + Proxmox provider: declarative VM lifecycle
           (create / modify / destroy Debian 13 Cloud-Init VMs)
 
-[ ] 1.2  Ansible post-provisioning playbooks:
+[-] 1.2  Ansible post-provisioning playbooks: (skipped)
          - SSH key-only auth, disable root password login
          - kernel params (net.ipv4.ip_forward=1, etc.)
 

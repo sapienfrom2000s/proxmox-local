@@ -15,3 +15,7 @@ This document logs detailed notes on the implementation details, configurations,
 - Template setup documented step-by-step in `code/iac/README.md`
 - Chose `bpg/proxmox` provider for active maintenance and native Cloud-Init support
 - State committed to git for single-operator durability
+
+### 1.2 — Ansible post-provisioning playbooks
+
+Deliberately skipped.
