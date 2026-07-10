@@ -8,6 +8,9 @@ One subfolder per topic — granular by concept, not by phase, since that's how 
 
 ```
 knowledge/
+├── cgnat/
+│   ├── learnings.md
+│   └── to-work-on.md
 ├── ddns/
 │   ├── learnings.md
 │   └── to-work-on.md
