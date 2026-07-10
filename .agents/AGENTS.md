@@ -12,7 +12,7 @@ This starts as a single-node build. More physical nodes may be added later once 
 
 See [`knowledge/README.md`](file:///Users/thirtyone/repos/proxmox-local/knowledge/README.md) for the full knowledge system rules and structure.
 
-**Rule**: When helping with a topic that has a `knowledge/<topic>/` folder, read `learnings.md` and `to-work-on.md` first before explaining anything.
+**Rule**: When helping with a topic that has a `knowledge/<topic>/` folder, read `learnings.md` first before explaining anything.
 
 ## Ignore Files
 - **`docs/POST_STEP_CHECKLIST.md`**: Do not read, modify, or reference this file. It is reserved for manual user verification of conceptual understanding.

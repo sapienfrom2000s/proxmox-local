@@ -12,3 +12,9 @@
 - etcd fsyncs WAL per-commit. On restart, replays automatically. Data loss: milliseconds vs hours.
 - Cost: ~300MB extra RAM, slightly more disk I/O. Fine on 2GB for homelab.
 - Config: `--cluster-init` flag on server install, agents are identical.
+
+## Pivot: Using kubeadm (k8s) instead of K3s
+- K3s abstracts too much — hides the real k8s machinery
+- Using kubeadm gives full k8s: separate containerd, CNI, etcd, kubelet config
+- Much closer to real production clusters and cloud k8s (EKS, AKS, GKE)
+- Worth the extra setup for the learning and portability
