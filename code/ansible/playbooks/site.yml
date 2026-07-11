@@ -1,7 +1,7 @@
 ---
 - name: Post-provisioning setup
   hosts: all
-  become: yes
+  become: true
 
   tasks:
     - name: Test connectivity

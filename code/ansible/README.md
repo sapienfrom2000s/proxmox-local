@@ -8,7 +8,8 @@ Post-provisioning configuration management for the homelab VMs.
 ansible/
 ├── ansible.cfg        # Ansible configuration (inventory path, defaults)
 ├── inventory.ini      # Host definitions and variables
-├── site.yml           # Main playbook entry point
+├── playbooks/
+│   └── site.yml       # Main playbook entry point
 └── README.md          # This file
 ```
 
@@ -19,13 +20,13 @@ ansible/
 ansible all -m ping
 
 # Run the main playbook
-ansible-playbook site.yml
+ansible-playbook playbooks/site.yml
 
 # Run on specific group
-ansible-playbook site.yml --limit workers
+ansible-playbook playbooks/site.yml --limit workers
 
 # Dry run (check mode)
-ansible-playbook site.yml --check
+ansible-playbook playbooks/site.yml --check
 ```
 
 ## Inventory
