@@ -53,7 +53,7 @@ Home internet connections almost always come with a **dynamic public IP** — yo
 - **Systemd timer** — Same as cron but with better logging and dependency control.
 - **Router built-in** — Many routers (Asus, pfSense, OPNsense, OpenWrt) support DDNS natively.
 - **Client daemon** — `ddclient`, `inadyn`, or provider-specific snaps handle retries and IP detection.
-- **In-cluster CronJob** — K3s CronJob runs the update script in a container.
+- **In-cluster CronJob** — K8s CronJob runs the update script in a container.
 
 ### ddclient — the most common dedicated client
 

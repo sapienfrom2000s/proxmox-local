@@ -17,6 +17,8 @@ knowledge/
 │   └── learnings.md
 ├── ddns/
 │   └── learnings.md
+├── k8s/
+│   └── learnings.md
 ├── opentofu/
 │   └── learnings.md
 ├── proxmox/

@@ -16,7 +16,7 @@ The goal of this project is to model real-world cloud infrastructure patterns—
 | **Configuration Management** | [Ansible](https://www.ansible.com/) | VM post-provisioning, hardening, and package installation |
 | **Secrets Management** | Ansible Vault | Safe encryption of tokens, SSH keys, and credentials |
 | **Networking & Routing** | Linux Bridges, HAProxy/Nginx, CoreDNS | Reverse proxy, local `*.local` DNS |
-| **Container Orchestration** | [K3s](https://k3s.io/) | Lightweight Kubernetes distribution (1x Control Plane, 2x Workers) |
+| **Container Orchestration** | [Kubernetes](https://kubernetes.io/) | Container orchestration (1x Control Plane, 2x Workers) |
 | **GitOps Engine** | [ArgoCD](https://argoproj.github.io/cd/) | Continuous delivery and sync tool |
 | **Observability & Telemetry**| Prometheus & Grafana | Telemetry collection, system metrics, and dashboarding |
 
@@ -41,7 +41,7 @@ All VMs are attached directly to the host bridge and receive IPs from the home n
           +-----------------------------+-----------------------------+
           |                             |                             |
   +-------v-------+             +-------v-------+             +-------v-------+
-  |    K3s CP     |             |  K3s Worker 1 |             |  K3s Worker 2 |
+  |    K8s CP     |             |  K8s Worker 1 |             |  K8s Worker 2 |
   | (Control      |             |               |             |               |
   |  Plane)       |             |               |             |               |
   | 192.168.1.10  |             | 192.168.1.11  |             | 192.168.1.12  |

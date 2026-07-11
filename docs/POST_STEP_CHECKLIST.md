@@ -47,7 +47,7 @@ This checklist contains the validation questions for each step of the Homelab Pl
 
 ## Phase 3: Production-Grade Kubernetes & GitOps
 
-### 3.1 K3s / kubeadm cluster
+### 3.1 K8s cluster
 - What does the control plane own vs. what does the data plane own?
 - What does etcd actually store, and why does it matter?
 - Why is a single CP node a resiliency gap? (see 6.2)
