@@ -35,6 +35,20 @@ Ansible = SSH + Python modules + YAML to describe intent + idempotency engine th
 - **Modules** — built-in tools for specific things (apt, sysctl, lineinfile, etc.)
 - **Ad-hoc commands** — one-off runs against hosts using `ansible` CLI
 
+### Basic Commands
+
+| Command | What it does |
+|---|---|
+| `ansible all -m ping` | Test connectivity to all hosts |
+| `ansible all -m shell -a "uptime"` | Run a command on all hosts |
+| `ansible-playbook site.yml` | Run a playbook |
+| `ansible-playbook site.yml --limit webservers` | Run playbook on specific hosts |
+| `ansible-playbook site.yml --check` | Dry run (show changes without applying) |
+| `ansible-playbook site.yml --diff` | Show what changed in files |
+| `ansible all -m setup` | Gather facts about all hosts |
+| `ansible-doc apt` | Show documentation for a module |
+| `ansible-inventory --list` | Show inventory as JSON |
+
 ### Key Modules
 
 | Module | Does what |
