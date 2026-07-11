@@ -55,3 +55,16 @@ ansible-playbook playbooks/site.yml -i inventory.ini -u debian --become --ask-be
 ```bash
 ansible-playbook playbooks/site.yml
 ```
+
+## Note
+
+Ansible inventory files (`inventory.ini`) don't support inline comments. Comments must be on their own line:
+
+```ini
+# This works
+[all:vars]
+ansible_user=debian
+
+# This doesn't work
+ansible_user=debian  # inline comment
+```
