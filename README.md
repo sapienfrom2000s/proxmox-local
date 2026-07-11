@@ -63,7 +63,8 @@ All VMs are attached directly to the host bridge and receive IPs from the home n
 │   ├── WHAT_IS_DONE.md    # Detailed log of implemented configurations and decisions
 │   └── POST_STEP_CHECKLIST.md # Conceptual validation and learning verification
 ├── knowledge/             # Personal comprehension tracking
-└── README.md              # This file
+│   └── ansible/           # Ansible learnings and examples
+├── README.md              # This file
 ```
 
 ---

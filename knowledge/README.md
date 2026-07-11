@@ -8,6 +8,9 @@ One subfolder per topic — granular by concept, not by phase, since that's how 
 
 ```
 knowledge/
+├── ansible/
+│   ├── learnings.md
+│   └── examples.md
 ├── cgnat/
 │   └── learnings.md
 ├── cloudflare-tunnel/
