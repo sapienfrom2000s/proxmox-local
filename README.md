@@ -57,6 +57,7 @@ All VMs are attached directly to the host bridge and receive IPs from the home n
 ```text
 ├── .agents/               # Agent configuration, rules, and skills
 ├── code/                  # All project code
+│   ├── ansible/           # Ansible playbooks and inventory
 │   └── iac/               # Infrastructure as Code (OpenTofu, etc.)
 ├── docs/
 │   ├── ROADMAP.md         # The master checklist of phases and project milestones

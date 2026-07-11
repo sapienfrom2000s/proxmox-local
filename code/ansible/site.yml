@@ -1,0 +1,12 @@
+---
+- name: Post-provisioning setup
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Test connectivity
+      ansible.builtin.ping:
+
+    - name: Display system info
+      ansible.builtin.debug:
+        msg: "Inventory hostname: {{ inventory_hostname }}, IP: {{ ansible_host }}"
