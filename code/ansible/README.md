@@ -49,20 +49,44 @@ Set in `inventory.ini` under `[all:vars]`:
 
 Sets defaults so you don't pass flags every time.
 
-**[defaults]**
-- `inventory = inventory.ini` — where to find hosts (instead of `/etc/ansible/hosts`)
-- `remote_user = debian` — SSH user for all connections
-- `host_key_checking = False` — skip SSH fingerprint prompts
-- `retry_files_enabled = False` — don't create `.retry` files on failure
+**[defaults]** — General behavior
 
-**[privilege_escalation]**
-- `become = True` — always use sudo (no `--become` flag needed)
-- `become_method = sudo` — which escalation tool to use
-- `become_user = root` — escalate to root
-- `become_ask_pass = False` — don't prompt for sudo password (assumes passwordless sudo)
+```ini
+[defaults]
+inventory = inventory.ini    # where to find hosts
+remote_user = debian         # SSH user
+host_key_checking = False    # skip fingerprint prompts
+retry_files_enabled = False  # don't create .retry files on failure
+```
 
-Without `ansible.cfg`, you'd need:
+Example without this section:
+```bash
+# You'd have to specify these every time
+ansible all -m ping -i inventory.ini -u debian -o StrictHostKeyChecking=no
+```
 
+**[privilege_escalation]** — Sudo configuration
+
+```ini
+[privilege_escalation]
+become = True               # always use sudo
+become_method = sudo        # escalation tool
+become_user = root          # escalate to root
+become_ask_pass = False     # don't prompt for sudo password
+```
+
+Example without this section:
+```bash
+# You'd have to add these flags
+ansible all -m ping --become --ask-become-pass
+```
+
+**Combined example** — without ansible.cfg:
 ```bash
 ansible-playbook playbooks/site.yml -i inventory.ini -u debian --become --ask-become-pass -o StrictHostKeyChecking=no
+```
+
+With ansible.cfg:
+```bash
+ansible-playbook playbooks/site.yml
 ```
