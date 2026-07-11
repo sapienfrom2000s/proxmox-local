@@ -17,3 +17,14 @@ Required for pod networking. Enable explicitly for IPv4 only—Kubernetes defaul
 echo "net.ipv4.ip_forward = 1" | sudo tee /etc/sysctl.d/k8s.conf
 sudo sysctl --system
 ```
+
+## br_netfilter
+
+Required for iptables to work on bridged traffic. Without it, the Linux bridge bypasses iptables entirely — kube-proxy's Service load balancing, network policies, and masquerade all break.
+
+```sh
+echo "net.bridge.bridge-nf-call-iptables = 1" | sudo tee -a /etc/sysctl.d/k8s.conf
+sudo sysctl --system
+```
+
+See [Pod Networking Internals](./networking/pod-networking-internals.md) for the full conceptual breakdown (veth, bridge, iptables, DNAT, br_netfilter).
