@@ -14,7 +14,7 @@ The goal of this project is to model real-world cloud infrastructure patterns—
 | **Base OS** | [Debian 13](https://www.debian.org/) | Light, clean Cloud-Init VM images |
 | **Infrastructure as Code** | [OpenTofu](https://opentofu.org/) | Open-source fork of Terraform for VM lifecycle management |
 | **Configuration Management** | [Ansible](https://www.ansible.com/) | VM post-provisioning, hardening, and package installation |
-| **Secrets Management** | Ansible Vault | Safe encryption of tokens, SSH keys, and credentials |
+| **Secrets Management** | [Doppler](https://www.doppler.com/) | Centralized secrets management with runtime injection |
 | **Networking & Routing** | Linux Bridges, HAProxy/Nginx, CoreDNS | Reverse proxy, local `*.local` DNS |
 | **Container Orchestration** | [Kubernetes](https://kubernetes.io/) | Container orchestration (1x Control Plane, 2x Workers) |
 | **GitOps Engine** | [ArgoCD](https://argoproj.github.io/cd/) | Continuous delivery and sync tool |

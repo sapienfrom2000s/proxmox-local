@@ -20,9 +20,9 @@ This checklist contains the validation questions for each step of the Homelab Pl
 - What makes a task idempotent vs. a plain shell script?
 - Why harden SSH/kernel params before anything else touches the box?
 
-### 1.3 Secrets management via Ansible Vault
-- What's the difference between secrets "at rest" (Vault-encrypted files in git) and secrets "at runtime" (injected via env/CI)?
-- If your vault password file leaked, what's compromised?
+### 1.3 Secrets management via Doppler
+- What's the difference between secrets "at rest" (encrypted files in git) and secrets "at runtime" (injected via env/CI)?
+- If your Doppler service token leaked, what's compromised?
 - Why is plaintext secrets in a public repo the #1 rookie mistake?
 
 ---
