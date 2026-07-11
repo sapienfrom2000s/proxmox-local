@@ -60,3 +60,9 @@ Sets defaults so you don't pass flags every time.
 - `become_method = sudo` — which escalation tool to use
 - `become_user = root` — escalate to root
 - `become_ask_pass = False` — don't prompt for sudo password (assumes passwordless sudo)
+
+Without `ansible.cfg`, you'd need:
+
+```bash
+ansible-playbook playbooks/site.yml -i inventory.ini -u debian --become --ask-become-pass -o StrictHostKeyChecking=no
+```
