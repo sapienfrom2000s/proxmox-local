@@ -8,7 +8,8 @@ Post-provisioning configuration management for the homelab VMs.
 ansible/
 ├── ansible.cfg        # Ansible configuration (inventory path, defaults)
 ├── docs/
-│   └── ANSIBLE_CFG.md # ansible.cfg explanation
+│   ├── ANSIBLE_CFG.md       # ansible.cfg explanation
+│   └── MODULES_AND_COMMANDS.md  # Modules vs commands, -m flag, ping module
 ├── inventory.ini      # Host definitions and variables
 ├── playbooks/
 │   └── site.yml       # Main playbook entry point
