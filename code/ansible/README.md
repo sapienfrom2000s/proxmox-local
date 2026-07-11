@@ -47,7 +47,7 @@ Set in `inventory.ini` under `[all:vars]`:
 
 ## Configuration (ansible.cfg)
 
-Sets defaults so you don't pass flags every time.
+Sets defaults so you don't pass flags every time. Ansible automatically reads this file from the current directory and applies settings to every command.
 
 **[defaults]** — General behavior
 
