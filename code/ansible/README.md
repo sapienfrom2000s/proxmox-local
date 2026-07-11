@@ -7,6 +7,8 @@ Post-provisioning configuration management for the homelab VMs.
 ```
 ansible/
 ├── ansible.cfg        # Ansible configuration (inventory path, defaults)
+├── docs/
+│   └── ANSIBLE_CFG.md # ansible.cfg explanation
 ├── inventory.ini      # Host definitions and variables
 ├── playbooks/
 │   └── site.yml       # Main playbook entry point
@@ -45,48 +47,6 @@ Set in `inventory.ini` under `[all:vars]`:
 - `ansible_become=yes` — Use sudo for all tasks
 - `ansible_ssh_common_args` — Skip host key verification for fresh VMs
 
-## Configuration (ansible.cfg)
+## Configuration
 
-Sets defaults so you don't pass flags every time. Ansible automatically reads this file from the current directory and applies settings to every command.
-
-**[defaults]** — General behavior
-
-```ini
-[defaults]
-inventory = inventory.ini    # where to find hosts
-remote_user = debian         # SSH user
-host_key_checking = False    # skip fingerprint prompts
-retry_files_enabled = False  # don't create .retry files on failure
-```
-
-Example without this section:
-```bash
-# You'd have to specify these every time
-ansible all -m ping -i inventory.ini -u debian -o StrictHostKeyChecking=no
-```
-
-**[privilege_escalation]** — Sudo configuration
-
-```ini
-[privilege_escalation]
-become = True               # always use sudo
-become_method = sudo        # escalation tool
-become_user = root          # escalate to root
-become_ask_pass = False     # don't prompt for sudo password
-```
-
-Example without this section:
-```bash
-# You'd have to add these flags
-ansible all -m ping --become --ask-become-pass
-```
-
-**Combined example** — without ansible.cfg:
-```bash
-ansible-playbook playbooks/site.yml -i inventory.ini -u debian --become --ask-become-pass -o StrictHostKeyChecking=no
-```
-
-With ansible.cfg:
-```bash
-ansible-playbook playbooks/site.yml
-```
+See [docs/ANSIBLE_CFG.md](docs/ANSIBLE_CFG.md) for detailed explanation of `ansible.cfg`.
