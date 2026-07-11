@@ -44,3 +44,19 @@ Set in `inventory.ini` under `[all:vars]`:
 - `ansible_user=debian` — SSH user (matches Cloud-Init config)
 - `ansible_become=yes` — Use sudo for all tasks
 - `ansible_ssh_common_args` — Skip host key verification for fresh VMs
+
+## Configuration (ansible.cfg)
+
+Sets defaults so you don't pass flags every time.
+
+**[defaults]**
+- `inventory = inventory.ini` — where to find hosts (instead of `/etc/ansible/hosts`)
+- `remote_user = debian` — SSH user for all connections
+- `host_key_checking = False` — skip SSH fingerprint prompts
+- `retry_files_enabled = False` — don't create `.retry` files on failure
+
+**[privilege_escalation]**
+- `become = True` — always use sudo (no `--become` flag needed)
+- `become_method = sudo` — which escalation tool to use
+- `become_user = root` — escalate to root
+- `become_ask_pass = False` — don't prompt for sudo password (assumes passwordless sudo)
