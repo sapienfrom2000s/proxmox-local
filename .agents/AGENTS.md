@@ -17,6 +17,9 @@ See [`knowledge/README.md`](file:///Users/thirtyone/repos/proxmox-local/knowledg
 ## Ignore Files
 - **`docs/POST_STEP_CHECKLIST.md`**: Do not read, modify, or reference this file. It is reserved for manual user verification of conceptual understanding.
 
+## Line Length
+- **Wrap at <90 characters**: Always wrap lines at fewer than 90 characters.
+
 ## Diagram Rules
 - **Use ASCII Diagrams**: Always use ASCII art/diagrams instead of Mermaid for visual representation.
 
