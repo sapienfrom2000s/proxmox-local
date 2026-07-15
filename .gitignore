@@ -11,6 +11,9 @@ Thumbs.db
 *.sln
 *.sw?
 
+# Node
+node_modules/
+
 # OpenTofu / Terraform
 .terraform/
 crash.log
