@@ -15,21 +15,25 @@ See [`knowledge/README.md`](file:///Users/thirtyone/repos/proxmox-local/knowledg
 **Rule**: When helping with a topic that has a `knowledge/<topic>/` folder, read `learnings.md` first before explaining anything.
 
 ## Ignore Files
+
 - **`docs/POST_STEP_CHECKLIST.md`**: Do not read, modify, or reference this file. It is reserved for manual user verification of conceptual understanding.
 
 ## Line Length
-- **Wrap at <90 characters**: Always wrap lines at fewer than 90 characters.
+
+- **Wrap at <80 characters**: Always wrap lines at fewer than 80 characters.
 
 ## Diagram Rules
+
 - **Use ASCII Diagrams**: Always use ASCII art/diagrams instead of Mermaid for visual representation.
 
 ## Commit Discipline
+
 - **Never commit without asking first.** Stage changes (`git add`) for review, but do not commit unless the user explicitly says "commit" or "commit it".
 
 ## Documentation Checks
+
 - **Core Document Synchronization**: Whenever any change is made, proactively check if you need to update/modify:
   - `AGENTS.md` (rules and context)
   - `README.md` (high-level introduction and architecture diagrams)
   - `docs/ROADMAP.md` (milestone checklist status)
   - `docs/WHAT_IS_DONE.md` (technical details of implemented progress)
-
