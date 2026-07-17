@@ -179,6 +179,29 @@ The etcd Pod runs with:
 
 ---
 
+## etcdctl — the command-line client
+
+`etcdctl` is the CLI tool for talking to etcd directly. The API server is the
+only Kubernetes component that touches etcd, but for operations like backups,
+health checks, and debugging, you use `etcdctl` on the control plane node.
+
+It requires the same TLS certs the API server uses:
+
+```bash
+ETCDCTL_API=3 etcdctl endpoint health \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  --cert=/etc/kubernetes/pki/etcd/server.crt \
+  --key=/etc/kubernetes/pki/etcd/server.key
+```
+
+`ETCDCTL_API=3` selects the v3 API (the only one that matters now). The common
+operations — snapshot save/status/restore, endpoint health/status, compact,
+defrag — are all subcommands of `etcdctl`. See `yet_to_understand.md` for the
+full command reference.
+
+---
+
 ## Single-node etcd vs. clustered etcd
 
 ### Single-node (current homelab setup)
