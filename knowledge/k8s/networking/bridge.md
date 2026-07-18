@@ -2,7 +2,9 @@
 
 ## What is a Bridge?
 
-Think of a network bridge like a **network switch** (that physical box with multiple ethernet ports). It's a virtual version of that, living inside your server.
+Think of a network bridge like a **network switch** (that physical box with
+multiple ethernet ports). It's a virtual version of that, living inside your
+server.
 
 ## How Does it Work?
 
@@ -41,4 +43,5 @@ Think of a network bridge like a **network switch** (that physical box with mult
 
 ## The Bottom Line
 
-The bridge plugin is the **"Hello World"** of Kubernetes networking. It's simple, easy to understand, but not feature-rich enough for production use.
+The bridge plugin is the **"Hello World"** of Kubernetes networking. It's
+simple, easy to understand, but not feature-rich enough for production use.
