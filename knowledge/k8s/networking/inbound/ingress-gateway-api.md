@@ -86,7 +86,8 @@ rewrite everything. The spec is frozen; no new features will ever be added.
 
 ## Gateway API — the fix
 
-Gateway API moves the missing features into the spec itself:
+Gateway API moves the missing features into the spec itself.
+[Full breakdown →](gateway-api.md)
 
 ```
 Ingress                       Gateway API
