@@ -1,0 +1,44 @@
+---
+# Worker join — registers each worker node with the control plane.
+#
+# 1. Fetch join command — gets the token-based join command saved by control-plane.yml
+# 2. kubeadm join — connects the worker to the cluster, starts kubelet, registers with API server
+
+- name: Join worker nodes
+  hosts: kube_node
+  become: true
+
+  vars:
+    join_command_file: /tmp/kubeadm-join-command.sh
+
+  tasks:
+    # Check if already joined — kubelet.conf is created by kubeadm join.
+    # Its presence means this node is already part of the cluster.
+
+    - name: Check if already joined
+      ansible.builtin.stat:
+        path: /etc/kubernetes/kubelet.conf
+      register: kubelet_conf
+
+    # Fetch join command from control plane — the token and CA cert hash
+    # are needed for the worker to authenticate with the API server.
+    # slurp reads a remote file and returns base64-encoded content.
+    # delegate_to runs this task on the control plane node instead of the worker,
+    # because the join command file lives there, not on the worker.
+
+    - name: Fetch join command from control plane
+      ansible.builtin.slurp:
+        src: "{{ join_command_file }}"
+      delegate_to: "{{ groups['kube_control_plane'][0] }}"
+      register: join_command_raw
+      when: not kubelet_conf.stat.exists
+
+    # Join cluster — runs the kubeadm join command which:
+    # - Downloads the CA cert from the control plane
+    # - Generates a kubelet certificate signed by the cluster CA
+    # - Registers the node with the API server
+    # - Starts kubelet
+
+    - name: Join cluster
+      ansible.builtin.command: "{{ join_command_raw.content | b64decode | trim }}"
+      when: not kubelet_conf.stat.exists

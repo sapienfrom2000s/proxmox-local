@@ -1,0 +1,82 @@
+---
+# Control plane initialization — bootstraps the cluster on the control plane node.
+#
+# 1. kubeadm init — creates the cluster, generates certs, starts API server/scheduler/controller-manager
+# 2. kubeconfig — copies admin config so kubectl works from this node
+# 3. Join command — generates a token and saves the join command for worker nodes
+# 4. Calico CNI — installs pod networking so pods can communicate across nodes
+
+- name: Initialize control plane
+  hosts: kube_control_plane
+  become: true
+
+  vars:
+    pod_network_cidr: "10.244.0.0/16"
+    service_cidr: "10.96.0.0/12"
+    join_command_file: /tmp/kubeadm-join-command.sh
+
+  tasks:
+    # Check if already initialized — makes playbook idempotent.
+    # admin.conf is created by kubeadm init, so its presence means the cluster exists.
+
+    - name: Check if cluster already initialized
+      ansible.builtin.stat:
+        path: /etc/kubernetes/admin.conf
+      register: k8s_conf
+
+    # kubeadm init — bootstraps the control plane.
+    # --pod-network-cidr: CIDR for pod IPs (Calico uses this)
+    # --service-cidr: CIDR for virtual service IPs (kube-proxy handles these)
+    # --upload-certs: encrypts and uploads certs so other control plane nodes can join (HA prep)
+
+    - name: Initialize cluster
+      ansible.builtin.command: >
+        kubeadm init
+        --pod-network-cidr={{ pod_network_cidr }}
+        --service-cidr={{ service_cidr }}
+        --upload-certs
+      when: not k8s_conf.stat.exists
+      register: kubeadm_init
+
+    # kubeconfig — kubectl needs this file to talk to the API server.
+    # Without it, kubectl has no endpoint or credentials.
+
+    - name: Create .kube directory
+      ansible.builtin.file:
+        path: /root/.kube
+        state: directory
+        mode: "0700"
+
+    - name: Copy admin.conf
+      ansible.builtin.copy:
+        src: /etc/kubernetes/admin.conf
+        dest: /root/.kube/config
+        remote_src: true
+        mode: "0600"
+
+    # Join command — generates a short-lived token and prints the full kubeadm join command.
+    # Workers need this to authenticate when joining the cluster.
+    # Saved to a file so the workers playbook can fetch it.
+
+    - name: Generate join command
+      ansible.builtin.command: kubeadm token create --print-join-command
+      register: join_command
+      changed_when: false
+
+    - name: Save join command
+      ansible.builtin.copy:
+        content: "{{ join_command.stdout }}\n"
+        dest: "{{ join_command_file }}"
+        mode: "0644"
+
+    # Calico CNI — pods can't communicate without a CNI plugin.
+    # Calico provides pod networking via an overlay, handles network policies,
+    # and assigns each pod a routable IP within the cluster.
+
+    - name: Install Calico CNI
+      ansible.builtin.command: >
+        kubectl apply -f
+        https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/calico.yaml
+      when: not k8s_conf.stat.exists
+      environment:
+        KUBECONFIG: /root/.kube/config
