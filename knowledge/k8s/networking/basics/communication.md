@@ -2,15 +2,15 @@
 
 ## The foundational rule
 
-Every pod gets its own real IP address — like a mini VM. Not a port mapping, not a
-shared address. No NAT between pods, ever, inside the cluster.
+Every pod gets its own real IP address — like a mini VM. Not a port mapping, not
+a shared address. No NAT between pods, ever, inside the cluster.
 
 Pod IPs are **unique across the entire cluster**, never duplicated across nodes.
 
 ## How IPs are carved up
 
-The cluster has one large address range, e.g. `10.244.0.0/16`. Each node is handed
-its own slice of it:
+The cluster has one large address range, e.g. `10.244.0.0/16`. Each node is
+handed its own slice of it:
 
 ```
 10.244.0.0/16                 (whole cluster range)
@@ -19,24 +19,26 @@ its own slice of it:
  └── 10.244.3.0/24  -> Node C
 ```
 
-- **Control plane** (`kube-controller-manager` + `etcd`) has the cluster-wide view.
-  It assigns each node its slice when the node joins, and this is the only place
-  that knows the full map.
-- **Each node's CNI IPAM** hands out individual IPs from its own slice as pods get
-  scheduled there. It has no visibility into other nodes — doesn't need it.
+- **Control plane** (`kube-controller-manager` + `etcd`) has the cluster-wide
+  view. It assigns each node its slice when the node joins, and this is the only
+  place that knows the full map.
+- **Each node's CNI IPAM** hands out individual IPs from its own slice as pods
+  get scheduled there. It has no visibility into other nodes — doesn't need it.
 
 ## What happens when a pod is scheduled
 
 1. `kubelet` on the target node sees the new pod and starts creating it.
-2. It first creates a hidden **pause container** — runs no app code, its only job
-   is to hold open a network namespace that all the pod's real containers share.
-3. `kubelet` calls the **CNI plugin**: "here's a new network namespace, set it up."
+2. It first creates a hidden **pause container** — runs no app code, its only
+   job is to hold open a network namespace that all the pod's real containers
+   share.
+3. `kubelet` calls the **CNI plugin**: "here's a new network namespace, set it
+   up."
 4. CNI's IPAM assigns the next free IP from the node's slice (e.g. `10.244.2.7`)
    and wires it into that namespace.
 
-The pause container stays alive for the pod's entire lifetime — app containers can
-crash and restart without the pod's IP ever changing, because the namespace never
-tears down until the whole pod is deleted.
+The pause container stays alive for the pod's entire lifetime — app containers
+can crash and restart without the pod's IP ever changing, because the namespace
+never tears down until the whole pod is deleted.
 
 ## The veth pair (the "wire")
 
@@ -79,14 +81,14 @@ The node-side veth ends all plug into a shared virtual switch called the bridge
  └───────────────────────────────────────────────────┘
 ```
 
-Pod A -> Pod B: packet leaves A's `eth0`, crosses the veth pair, hits the bridge,
-bridge forwards it out the port wired to B — same as a real Ethernet switch
-learning MAC/IP-to-port mappings. Never touches the node's physical NIC.
+Pod A -> Pod B: packet leaves A's `eth0`, crosses the veth pair, hits the
+bridge, bridge forwards it out the port wired to B — same as a real Ethernet
+switch learning MAC/IP-to-port mappings. Never touches the node's physical NIC.
 
-**CNI's role here:** sets this all up once at pod creation (create veth pair, plug
-node-side end into the bridge, assign IP) and then steps back. The bridge itself
-is just a kernel feature — the OS runs it afterward, no ongoing CNI involvement
-needed for basic forwarding.
+**CNI's role here:** sets this all up once at pod creation (create veth pair,
+plug node-side end into the bridge, assign IP) and then steps back. The bridge
+itself is just a kernel feature — the OS runs it afterward, no ongoing CNI
+involvement needed for basic forwarding.
 
 ## Cross-node communication
 
@@ -118,8 +120,8 @@ Node A                                              Node B
                                      (Unwrapped)
 ```
 
-- Every node's routing table gets populated with "subnet X -> node with real IP Y"
-  for every other node in the cluster.
+- Every node's routing table gets populated with "subnet X -> node with real IP
+  Y" for every other node in the cluster.
 - Distribution mechanism depends on the CNI plugin:
   - **Flannel** — mapping stored centrally (etcd / API), an agent on each node
     watches it and writes local routes.
@@ -168,9 +170,9 @@ Mixing CNI plugins/modes within one cluster isn't supported for this reason.
 
 ## Traffic leaving the cluster (SNAT)
 
-Pod IPs (`10.244.x.x`) are only valid *inside* the cluster. If a pod sent traffic
-to the public internet using its raw pod IP as the source, replies would have
-nowhere to route back to.
+Pod IPs (`10.244.x.x`) are only valid _inside_ the cluster. If a pod sent
+traffic to the public internet using its raw pod IP as the source, replies would
+have nowhere to route back to.
 
 ```
 Pod (10.244.1.4)  ──▶  Node rewrites source IP (SNAT)  ──▶  Internet
@@ -187,7 +189,8 @@ Reply arrives at node ──▶ node maps it back to the pod ──▶ Pod (10.2
 
 ## Restricting traffic: NetworkPolicy
 
-By default, **every pod can reach every other pod**, cluster-wide, no restrictions.
+By default, **every pod can reach every other pod**, cluster-wide, no
+restrictions.
 
 A **NetworkPolicy** acts like a firewall rule, but targets pods by **labels**
 instead of IPs:
@@ -210,12 +213,12 @@ CNI, etc.) at pod lifecycle events.
 
 Everywhere CNI showed up in this flow:
 
-| Step                     | CNI's role                                                              |
-|---------------------------|--------------------------------------------------------------------------|
-| Pod creation               | Creates veth pair, assigns IP from node's slice, plugs into the bridge  |
-| Same-node delivery         | Wired the bridge setup; the bridge itself runs as a kernel feature after|
-| Cross-node delivery        | Chooses/implements native routing or overlay; keeps routes in sync      |
-| NetworkPolicy enforcement  | Writes the actual firewall rules into the kernel per node               |
+| Step                      | CNI's role                                                               |
+| ------------------------- | ------------------------------------------------------------------------ |
+| Pod creation              | Creates veth pair, assigns IP from node's slice, plugs into the bridge   |
+| Same-node delivery        | Wired the bridge setup; the bridge itself runs as a kernel feature after |
+| Cross-node delivery       | Chooses/implements native routing or overlay; keeps routes in sync       |
+| NetworkPolicy enforcement | Writes the actual firewall rules into the kernel per node                |
 
 Pattern: `kubelet` calls CNI at pod create/destroy to set things up, then CNI's
 job for that event is done — except for routing sync and NetworkPolicy, where a
