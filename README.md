@@ -13,17 +13,17 @@ provisioned declaratively through code rather than manual UI clicks.
 
 ## 🛠️ Technology Stack
 
-| Layer                         | Technology                                                           | Purpose                                                           |
-| :---------------------------- | :------------------------------------------------------------------- | :---------------------------------------------------------------- |
-| **Hypervisor**                | [Proxmox VE](https://www.proxmox.com/)                               | Bare-metal virtualization platform                                |
-| **Base OS**                   | [Debian 13](https://www.debian.org/)                                 | Light, clean Cloud-Init VM images                                 |
-| **Infrastructure as Code**    | [OpenTofu](https://opentofu.org/)                                    | Open-source fork of Terraform for VM lifecycle management         |
-| **Configuration Management**  | [Ansible](https://www.ansible.com/)                                  | VM post-provisioning, hardening, and package installation         |
-| **Secrets Management**        | [Doppler](https://www.doppler.com/)                                  | Centralized secrets management with runtime injection             |
-| **Networking & Routing**      | Linux Bridges, [dnsmasq](https://thekelleys.org.uk/dnsmasq/doc.html) | Reverse proxy, local `*.local` DNS (lightweight C-based resolver) |
-| **Container Orchestration**   | [Kubernetes](https://kubernetes.io/)                                 | Container orchestration (1x Control Plane, 2x Workers)            |
-| **GitOps Engine**             | [ArgoCD](https://argoproj.github.io/cd/)                             | Continuous delivery and sync tool                                 |
-| **Observability & Telemetry** | Prometheus & Grafana                                                 | Telemetry collection, system metrics, and dashboarding            |
+| Layer                         | Technology                                                                                                    | Purpose                                                    |
+| :---------------------------- | :------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------- |
+| **Hypervisor**                | [Proxmox VE](https://www.proxmox.com/)                                                                        | Bare-metal virtualization platform                         |
+| **Base OS**                   | [Debian 13](https://www.debian.org/)                                                                          | Light, clean Cloud-Init VM images                          |
+| **Infrastructure as Code**    | [OpenTofu](https://opentofu.org/)                                                                             | Open-source fork of Terraform for VM lifecycle management  |
+| **Configuration Management**  | [Ansible](https://www.ansible.com/)                                                                           | VM post-provisioning, hardening, and package installation  |
+| **Secrets Management**        | [Doppler](https://www.doppler.com/)                                                                           | Centralized secrets management with runtime injection      |
+| **Networking & Routing**      | Linux Bridges, [dnsmasq](https://thekelleys.org.uk/dnsmasq/doc.html), [MetalLB](https://metallb.universe.tf/) | Reverse proxy, local `*.home` DNS, bare-metal LoadBalancer |
+| **Container Orchestration**   | [Kubernetes](https://kubernetes.io/)                                                                          | Container orchestration (1x Control Plane, 2x Workers)     |
+| **GitOps Engine**             | [ArgoCD](https://argoproj.github.io/cd/)                                                                      | Continuous delivery and sync tool                          |
+| **Observability & Telemetry** | Prometheus & Grafana                                                                                          | Telemetry collection, system metrics, and dashboarding     |
 
 ---
 
@@ -63,7 +63,8 @@ network:
 ├── .agents/               # Agent configuration, rules, and skills
 ├── code/                  # All project code
 │   ├── ansible/           # Ansible playbooks and inventory
-│   └── iac/               # Infrastructure as Code (OpenTofu, etc.)
+│   ├── iac/               # Infrastructure as Code (OpenTofu, etc.)
+│   └── k8s/               # Kubernetes configs (MetalLB, experiments, etc.)
 ├── docs/
 │   ├── ROADMAP.md         # The master checklist of phases and project milestones
 │   ├── WHAT_IS_DONE.md    # Detailed log of implemented configurations and decisions

@@ -60,3 +60,20 @@ Deliberately skipped.
 - 3-node cluster running: cp (192.168.1.10), alpha (192.168.1.11), beta
   (192.168.1.12)
 - Kubernetes v1.36.2, Calico CNI, all nodes Ready
+
+### 2.2 — MetalLB (bare-metal LoadBalancer)
+
+- Installed MetalLB v0.14.9 via official manifest
+- IPAddressPool: `192.168.1.200-192.168.1.250`
+- L2Advertisement: announces IPs on the LAN via ARP
+- Watches for Services of type `LoadBalancer` — no annotations needed
+- Config stored in `code/k8s/metallb/`
+
+### 2.3 — dnsmasq (local DNS)
+
+- Installed dnsmasq on Proxmox host (192.168.1.9) via Ansible
+- Resolves `*.home` entries to K8s service IPs
+- Example: `nginx.home → 192.168.1.200` (MetalLB-assigned IP)
+- Config in `/etc/dnsmasq.d/k8s.conf` on the Proxmox host
+- Used `.home` TLD instead of `.local` (`.local` is reserved for mDNS/Bonjour on
+  macOS)
