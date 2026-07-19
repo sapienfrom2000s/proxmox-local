@@ -168,33 +168,6 @@ default.
 
 ---
 
-## The ownership model
-
-```
-┌──────────────────────────────────────────────────────────┐
-│  Cluster Operator                                        │
-│  owns: GatewayClass                                      │
-│  "picks the controller, sets global policy"              │
-├──────────────────────────────────────────────────────────┤
-│  Infrastructure Team                                     │
-│  owns: Gateway                                           │
-│  "opens ports, manages TLS certs, sets listener rules"   │
-├──────────────────────────────────────────────────────────┤
-│  App Team A          │  App Team B                       │
-│  owns: HTTPRoute     │  owns: HTTPRoute                  │
-│  "routes to my svc"  │  "routes to my svc"               │
-└───────────────────────────────────┬──────────────────────┘
-                                    │
-                          all attach to the
-                          same Gateway
-```
-
-Each team manages their own layer. App teams never touch the Gateway or its TLS
-config. Infrastructure teams never touch app routing rules. Ingress had none of
-this separation — everything lived in one flat resource.
-
----
-
 ## Conformance profiles
 
 Controllers don't all implement every feature. Gateway API defines conformance
