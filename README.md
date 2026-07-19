@@ -21,6 +21,7 @@ provisioned declaratively through code rather than manual UI clicks.
 | **Configuration Management**  | [Ansible](https://www.ansible.com/)                                                                           | VM post-provisioning, hardening, and package installation  |
 | **Secrets Management**        | [Doppler](https://www.doppler.com/)                                                                           | Centralized secrets management with runtime injection      |
 | **Networking & Routing**      | Linux Bridges, [dnsmasq](https://thekelleys.org.uk/dnsmasq/doc.html), [MetalLB](https://metallb.universe.tf/) | Reverse proxy, local `*.home` DNS, bare-metal LoadBalancer |
+| **TLS Certificates**          | [cert-manager](https://cert-manager.io/)                                                                      | In-cluster CA, auto-issued `*.home` wildcard certs         |
 | **Container Orchestration**   | [Kubernetes](https://kubernetes.io/)                                                                          | Container orchestration (1x Control Plane, 2x Workers)     |
 | **GitOps Engine**             | [ArgoCD](https://argoproj.github.io/cd/)                                                                      | Continuous delivery and sync tool                          |
 | **Observability & Telemetry** | Prometheus & Grafana                                                                                          | Telemetry collection, system metrics, and dashboarding     |

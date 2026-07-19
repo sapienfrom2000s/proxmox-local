@@ -77,3 +77,21 @@ Deliberately skipped.
 - Config in `/etc/dnsmasq.d/k8s.conf` on the Proxmox host
 - Used `.home` TLD instead of `.local` (`.local` is reserved for mDNS/Bonjour on
   macOS)
+
+### 2.4 — cert-manager (TLS certificates)
+
+- Installed cert-manager v1.21.0 from official manifests
+- Self-signed bootstrap ClusterIssuer creates a CA root cert (`home-ca-ca`
+  Secret in `cert-manager` namespace)
+- CA ClusterIssuer (`ca-issuer`) references the CA Secret — all downstream certs
+  are signed by this CA
+- Wildcard Certificate `*.home` stored as Secret `home-tls` in `default`
+  namespace
+- Wildcard cert covers any `something.home` subdomain (e.g. `nginx.home`,
+  `argocd.home`, `grafana.home`)
+- CA cert + key duration: 10 years, renews 1 year before expiry
+- Wildcard cert duration: 1 year, renews 30 days before expiry
+- cert-manager handles renewal automatically — no manual intervention needed
+- CA trust: extract `ca.crt` from `home-ca-ca` Secret, install in macOS Keychain
+  for browser trust
+- Config in `code/k8s/cert-manager/`
