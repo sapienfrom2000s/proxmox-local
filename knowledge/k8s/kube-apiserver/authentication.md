@@ -116,3 +116,8 @@ org's CRL/OCSP — same process as revoking any other cert. With a self-signed C
 revocation is your problem. With a proper CA, external systems (monitoring,
 CI/CD, service mesh) already trust the chain without you distributing `ca.crt`
 everywhere.
+
+## See also
+
+- [networking/external-https.md](../networking/external-https.md) — external
+  HTTPS flow (browser → TLS terminator → pod, separate CA for external trust)
