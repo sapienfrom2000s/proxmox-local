@@ -4,3 +4,7 @@
 
 # Patch argocd-server to LoadBalancer
 # kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+
+# Disable HTTPS (homelab, no need for TLS)
+# kubectl patch configmap argocd-cmd-params-cm -n argocd --type merge -p '{"data":{"server.insecure":"true"}}'
+# kubectl rollout restart deployment argocd-server -n argocd
