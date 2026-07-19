@@ -25,7 +25,7 @@ knowledge/k8s/learnings.md for rationale
 CA issuer - Wildcard cert for *.home (Secret: home-tls) - Auto-renewal, CA trust
 via macOS Keychain
 
-[ ] 2.2 ArgoCD (OSS) installed in-cluster - linked to a free-tier GitHub repo ->
+[x] 2.2 ArgoCD (OSS) installed in-cluster - linked to a free-tier GitHub repo ->
 fully declarative deploys
 
 [ ] 2.3 Ingress + Storage: - Traefik / Ingress-Nginx controller - Longhorn /

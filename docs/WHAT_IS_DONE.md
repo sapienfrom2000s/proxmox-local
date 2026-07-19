@@ -95,3 +95,16 @@ Deliberately skipped.
 - CA trust: extract `ca.crt` from `home-ca-ca` Secret, install in macOS Keychain
   for browser trust
 - Config in `code/k8s/cert-manager/`
+
+### 2.5 — ArgoCD (GitOps)
+
+- Installed ArgoCD v3.4.5 via official manifests (non-HA)
+- Exposed via LoadBalancer — MetalLB assigned `192.168.1.201`
+- DNS: `argocd.home → 192.168.1.201` (added to dnsmasq on Proxmox host)
+- HTTPS disabled (`server.insecure: true`) — homelab, no need for TLS
+- ArgoCD generates its own self-signed cert for HTTPS; even though we have a
+  `*.home` wildcard cert from our CA, ArgoCD doesn't use it. Disabling HTTPS
+  avoids the browser trust warning entirely.
+- Admin password: stored in `argocd-initial-admin-secret` Secret
+- Config in `code/k8s/argocd/`
+- Added Proxmox host (`pve`, 192.168.1.9) to Ansible inventory
