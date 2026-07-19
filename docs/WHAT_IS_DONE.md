@@ -1,6 +1,7 @@
 # Completed Milestones & Implementations
 
-This document logs detailed notes on the implementation details, configurations, and actions taken for each completed phase and milestone in the homelab.
+This document logs detailed notes on the implementation details, configurations,
+and actions taken for each completed phase and milestone in the homelab.
 
 ---
 
@@ -8,12 +9,16 @@ This document logs detailed notes on the implementation details, configurations,
 
 ### 1.1 — OpenTofu + Proxmox provider: declarative VM lifecycle
 
-- Created `tofu@pve` service user with scoped API token and custom role on Proxmox host
+- Created `tofu@pve` service user with scoped API token and custom role on
+  Proxmox host
 - Downloaded Debian 13 cloud image and created VM template 9000
-- Scaffolded OpenTofu project: `versions.tf`, `providers.tf`, `variables.tf`, `terraform.tfvars.example`, `main.tf`, `outputs.tf`
-- 3 VMs defined via `for_each` (cp, alpha, beta) with Cloud-Init networking and SSH key injection
+- Scaffolded OpenTofu project: `versions.tf`, `providers.tf`, `variables.tf`,
+  `terraform.tfvars.example`, `main.tf`, `outputs.tf`
+- 3 VMs defined via `for_each` (cp, alpha, beta) with Cloud-Init networking and
+  SSH key injection
 - Template setup documented step-by-step in `code/iac/README.md`
-- Chose `bpg/proxmox` provider for active maintenance and native Cloud-Init support
+- Chose `bpg/proxmox` provider for active maintenance and native Cloud-Init
+  support
 - State committed to git for single-operator durability
 
 ### 1.2 — Ansible post-provisioning playbooks
@@ -24,8 +29,34 @@ Deliberately skipped.
 
 - Installed Doppler CLI (`brew install dopplerhq/cli/doppler`)
 - Created project `proxmox-local` with `dev` config
-- Stored secrets: `TF_VAR_PROXMOX_ENDPOINT`, `TF_VAR_API_TOKEN`, `TF_VAR_SSH_PUBLIC_KEY`
-- Renamed Tofu variables to UPPER_CASE so `TF_VAR_*` names match directly (no wrapper needed)
-- Removed sensitive values from `terraform.tfvars` (kept only non-sensitive config)
+- Stored secrets: `TF_VAR_PROXMOX_ENDPOINT`, `TF_VAR_API_TOKEN`,
+  `TF_VAR_SSH_PUBLIC_KEY`
+- Renamed Tofu variables to UPPER_CASE so `TF_VAR_*` names match directly (no
+  wrapper needed)
+- Removed sensitive values from `terraform.tfvars` (kept only non-sensitive
+  config)
 - Workflow: `doppler run -- tofu plan|apply`
 - Sensitive values no longer exist on disk unencrypted
+
+---
+
+## Phase 2: Kubernetes Cluster Setup
+
+### 2.1 — Ansible playbooks for kubeadm
+
+- Created modular playbooks in `code/ansible/playbooks/k8s/`:
+  - `prerequisites.yml`: swap, kernel modules, sysctl, containerd,
+    kubeadm/kubelet/kubectl
+  - `control-plane.yml`: kubeadm init, Calico CNI, join command generation
+  - `workers.yml`: kubeadm join via fetched token
+- Updated inventory with k8s-compatible group names (`kube_control_plane`,
+  `kube_node`)
+- Pinned `ansible-core==2.21.1` in `requirements.txt`
+- Fixed Debian trixie compatibility: replaced deprecated `apt-key` with
+  `/etc/apt/keyrings/` + `signed-by`
+- Enabled CRI plugin in containerd config (disabled by default in Docker's
+  package)
+- All playbooks are idempotent — safe to re-run
+- 3-node cluster running: cp (192.168.1.10), alpha (192.168.1.11), beta
+  (192.168.1.12)
+- Kubernetes v1.36.2, Calico CNI, all nodes Ready
