@@ -19,7 +19,9 @@ Without a load balancer:
 ### What MetalLB Does
 
 MetalLB is a software-defined load balancer built specifically for bare-metal
-clusters. It mimics a cloud load balancer inside your private network:
+clusters. It watches for Services of type `LoadBalancer` and assigns them an IP
+from a configured pool. It mimics a cloud load balancer inside your private
+network:
 
 1. Allocates a Local Address: It hooks into your physical LAN and takes a clean,
    unused IP address from your local network pool.

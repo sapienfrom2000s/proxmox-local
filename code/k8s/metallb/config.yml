@@ -1,0 +1,21 @@
+# Apply install.yml first, then apply this file.
+# IPAddressPool: 192.168.1.200-192.168.1.250
+# L2Advertisement: tells the network "I own this IP" when something asks "who has it?"
+# Apply after MetalLB install: kubectl apply -f config.yml
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: default-pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - 192.168.1.200-192.168.1.250
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: default
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - default-pool
