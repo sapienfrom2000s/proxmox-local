@@ -7,6 +7,5 @@ Custom microservices that run on the Kubernetes cluster.
 ```
 app/
 ├── api/      Flask
-├── web/      Svelte
 └── cache/    Redis
 ```
