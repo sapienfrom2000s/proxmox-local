@@ -1,5 +1,6 @@
 from flask import Flask
 from config import Config
+from app.redis import close_redis
 
 
 def create_app(config=None):
@@ -11,5 +12,6 @@ def create_app(config=None):
 
     from app.routes import api
     app.register_blueprint(api)
+    app.teardown_appcontext(close_redis)
 
     return app
