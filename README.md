@@ -64,6 +64,8 @@ network:
 ├── .agents/               # Agent configuration, rules, and skills
 ├── code/                  # All project code
 │   ├── ansible/           # Ansible playbooks and inventory
+│   ├── app/               # Flask API application
+│   │   └── api/           # Flask app with routes and config
 │   ├── iac/               # Infrastructure as Code (OpenTofu, etc.)
 │   └── k8s/               # Kubernetes configs (MetalLB, experiments, etc.)
 ├── docs/
