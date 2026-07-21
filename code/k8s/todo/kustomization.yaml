@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - flask/configmap.yaml
+  - flask/deployment.yaml
+  - flask/service.yaml
+  - redis/deployment.yaml
+  - redis/service.yaml
