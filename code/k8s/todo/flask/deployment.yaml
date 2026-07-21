@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: todo-api
-          image: threepapertrail/todo-api:7da579adc612866e2069
+          image: threepapertrail/todo-api:4e2ef4514d131d2bb924
           ports:
             - containerPort: 5000
           envFrom:

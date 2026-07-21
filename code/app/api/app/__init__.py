@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from config import Config
+from app.redis import init_redis
 
 
 def create_app(config=None):
@@ -8,6 +9,8 @@ def create_app(config=None):
         app.config.update(config)
     else:
         app.config.from_object(Config)
+
+    init_redis(app)
 
     from app.routes import api
     app.register_blueprint(api)
