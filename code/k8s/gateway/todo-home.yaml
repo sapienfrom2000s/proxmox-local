@@ -1,0 +1,16 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: todo-api
+  namespace: gateway
+spec:
+  parentRefs:
+    - name: home-gateway
+      namespace: gateway
+  hostnames:
+    - "todo.home"
+  rules:
+    - backendRefs:
+        - name: todo-api
+          namespace: todo
+          port: 80
