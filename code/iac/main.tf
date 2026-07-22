@@ -2,10 +2,10 @@ locals {
   vms = {
     cp = {
       name   = "cp"
-      memory = 2048
+      memory = 4096
       disk   = 20
       ip     = "192.168.1.10/24"
-      cores  = 2
+      cores  = 4
     }
     alpha = {
       name   = "alpha"
