@@ -33,9 +33,8 @@ self-signed issuer (built-in bootstrap)
 # 1. Install cert-manager
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.21.0/cert-manager.yaml
 
-# 2. Apply issuers + wildcard cert
+# 2. Apply issuers
 kubectl apply -f code/k8s/cert-manager/issuers.yml
-kubectl apply -f code/k8s/cert-manager/wildcard.yml
 ```
 
 ## Secrets produced
@@ -43,9 +42,9 @@ kubectl apply -f code/k8s/cert-manager/wildcard.yml
 | Secret       | Namespace      | Contains                                            |
 | ------------ | -------------- | --------------------------------------------------- |
 | `home-ca-ca` | `cert-manager` | CA root cert + key (`tls.crt`, `tls.key`, `ca.crt`) |
-| `home-tls`   | `default`      | Wildcard TLS cert + key for `*.home`                |
 
-Any Ingress or Service can reference `home-tls` for TLS termination.
+The wildcard cert is managed by `code/k8s/gateway/certificate.yaml` and stored
+in Secret `home-tls` in the `gateway` namespace.
 
 ## Trusting the CA on your Mac
 
@@ -86,9 +85,10 @@ kubectl describe secret home-tls
 code/k8s/cert-manager/
 ├── install.yml     # cert-manager manifest reference
 ├── issuers.yml     # selfsigned-issuer → CA cert → ca-issuer
-├── wildcard.yml    # *.home Certificate resource
 └── README.md       # This file
 ```
+
+The wildcard cert lives in `code/k8s/gateway/certificate.yaml`.
 
 ## Renewal
 

@@ -83,6 +83,21 @@ scenes.
 
 ---
 
+## Wildcard certificate for all services
+
+Instead of creating a separate certificate for every service (todo.home,
+dashboard.home, etc.), you can create one wildcard certificate that covers them
+all.
+
+The file `certificate.yaml` in the gateway directory does exactly this. It
+requests a certificate for `*.home` signed by your root CA. cert-manager creates
+it, stores the cert + key in a Secret called `home-tls`, and auto-renews it.
+
+Any service using a `*.home` hostname can reference this same Secret for TLS
+termination. One certificate, all services covered.
+
+---
+
 ## Quick summary
 
 - The root CA is created once via selfsigned-issuer.

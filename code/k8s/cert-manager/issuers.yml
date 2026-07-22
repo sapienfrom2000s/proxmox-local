@@ -15,10 +15,10 @@ spec:
   commonName: home-ca
   duration: 87600h # 10 years
   renewBefore: 8760h # 1 year
+  secretName: home-ca-secret
   subject:
     organizations:
       - homelab
-  secretName: home-ca-ca
   issuerRef:
     name: selfsigned-issuer
     kind: ClusterIssuer
@@ -30,4 +30,4 @@ metadata:
   name: ca-issuer
 spec:
   ca:
-    secretName: home-ca-ca
+    secretName: home-ca-secret
