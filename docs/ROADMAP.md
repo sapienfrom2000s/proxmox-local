@@ -22,14 +22,18 @@ PHASE 2: PRODUCTION-GRADE KUBERNETES & GITOPS
 knowledge/k8s/learnings.md for rationale
 
 [x] 2.1b cert-manager + TLS certificates - cert-manager v1.21.0 with self-signed
-CA issuer - Wildcard cert for *.home (Secret: home-tls) - Auto-renewal, CA trust
-via macOS Keychain
+CA issuer - Wildcard cert for *.home (Secret: home-tls in gateway namespace) -
+Auto-renewal, CA trust via macOS Keychain + Firefox
 
 [x] 2.2 ArgoCD (OSS) installed in-cluster - linked to a free-tier GitHub repo ->
 fully declarative deploys
 
-[ ] 2.3 Ingress + Storage: - Traefik / Ingress-Nginx controller - Longhorn /
-OpenEBS for persistent volumes
+[x] 2.3 Gateway API (Envoy Gateway) - Installed Gateway API CRDs + Envoy Gateway
+via Helm chart through ArgoCD - TLS termination for *.home on gateway
+(192.168.1.203) - todo.home routed to todo-api service - Cross-namespace routing
+via ReferenceGrant
+
+[ ] 2.4 Persistent Storage: - Longhorn / OpenEBS for persistent volumes
 
 PHASE 3: OBSERVABILITY
 ----------------------------------------------------------------

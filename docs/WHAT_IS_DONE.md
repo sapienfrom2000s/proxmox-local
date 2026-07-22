@@ -16,6 +16,7 @@ and actions taken for each completed phase and milestone in the homelab.
   `terraform.tfvars.example`, `main.tf`, `outputs.tf`
 - 3 VMs defined via `for_each` (cp, alpha, beta) with Cloud-Init networking and
   SSH key injection
+- CP VM upgraded from 2GB to 4GB RAM to support increased workload
 - Template setup documented step-by-step in `code/iac/README.md`
 - Chose `bpg/proxmox` provider for active maintenance and native Cloud-Init
   support
@@ -81,19 +82,22 @@ Deliberately skipped.
 ### 2.4 — cert-manager (TLS certificates)
 
 - Installed cert-manager v1.21.0 from official manifests
-- Self-signed bootstrap ClusterIssuer creates a CA root cert (`home-ca-ca`
+- Self-signed bootstrap ClusterIssuer creates a CA root cert (`home-ca-secret`
   Secret in `cert-manager` namespace)
 - CA ClusterIssuer (`ca-issuer`) references the CA Secret — all downstream certs
   are signed by this CA
-- Wildcard Certificate `*.home` stored as Secret `home-tls` in `default`
+- Wildcard Certificate `*.home` stored as Secret `home-tls` in `gateway`
   namespace
-- Wildcard cert covers any `something.home` subdomain (e.g. `nginx.home`,
+- Wildcard cert covers any `something.home` subdomain (e.g. `todo.home`,
   `argocd.home`, `grafana.home`)
+- Explicit hostnames added to SANs (e.g. `todo.home`) to work around wildcard
+  matching issues in Safari/curl
 - CA cert + key duration: 10 years, renews 1 year before expiry
 - Wildcard cert duration: 1 year, renews 30 days before expiry
 - cert-manager handles renewal automatically — no manual intervention needed
-- CA trust: extract `ca.crt` from `home-ca-ca` Secret, install in macOS Keychain
-  for browser trust
+- CA trust: extract CA cert, install in macOS Keychain + Firefox cert store for
+  browser trust
+- Created `FORME.md` explainer document covering cert-manager concepts
 - Config in `code/k8s/cert-manager/`
 
 ### 2.5 — ArgoCD (GitOps)
@@ -108,3 +112,20 @@ Deliberately skipped.
 - Admin password: stored in `argocd-initial-admin-secret` Secret
 - Config in `code/k8s/argocd/`
 - Added Proxmox host (`pve`, 192.168.1.9) to Ansible inventory
+
+### 2.6 — Gateway API (Envoy Gateway)
+
+- Installed Gateway API CRDs (v1.2.1)
+- Deployed Envoy Gateway via Helm chart (`gateway-helm` v1.8.3) through ArgoCD
+- GatewayClass: `envoy-gateway` (controllerName:
+  `gateway.envoyproxy.io/gatewayclass-controller`)
+- Gateway: `home-gateway` in `gateway` namespace, listens on `*.home:443` with
+  TLS termination using `home-tls` Secret
+- Envoy proxy exposed via LoadBalancer — MetalLB assigned `192.168.1.203`
+- HTTPRoute: `todo-api` routes `todo.home` to `todo-api.todo:80`
+- ReferenceGrant: allows cross-namespace routing from `gateway` to `todo`
+- DNS updated: `todo.home → 192.168.1.203` (gateway IP, not service IP)
+- Root CA imported into both macOS Keychain and Firefox cert store
+- Created detailed docs in `code/k8s/gateway/docs/`
+- Postmortem documenting issues encountered: cross-namespace routing blocked,
+  wildcard cert matching failures, Firefox trust store isolation
