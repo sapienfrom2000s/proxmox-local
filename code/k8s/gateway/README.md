@@ -53,7 +53,7 @@ helm install eg envoy-gateway/gateway-helm \
 ```
 
 Via ArgoCD: Helm source type, repo `oci://docker.io/envoyproxy/gateway-helm`,
-chart `gateway-helm`, version `v1.8.3`.
+chart `gateway-helm`, version `v1.8.3`.(we did this)
 
 ### 3. Gateway resources
 
