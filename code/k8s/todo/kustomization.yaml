@@ -5,5 +5,13 @@ resources:
   - flask/configmap.yaml
   - flask/deployment.yaml
   - flask/service.yaml
+  - locust/deployment.yaml
+  - locust/service.yaml
   - redis/deployment.yaml
   - redis/service.yaml
+
+configMapGenerator:
+  - name: locustfile
+    files:
+      - locust/locustfile.py
+
