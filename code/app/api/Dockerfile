@@ -10,4 +10,4 @@ COPY . .
 RUN adduser --disabled-password --no-create-home appuser
 USER appuser
 EXPOSE 5000
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:create_app()"]
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "--access-logfile", "-", "app:create_app()"]
