@@ -4,6 +4,8 @@ lokiCanary:
   lokiurl: http://loki:3100
 chunksCache:
   enabled: false
+resultsCache:
+  enabled: false
 deploymentMode: Monolithic
 loki:
   auth_enabled: false
