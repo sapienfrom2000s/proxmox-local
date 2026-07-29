@@ -11,7 +11,7 @@ spec:
       targetRevision: 87.21.0
       helm:
         valueFiles:
-          - $values/code/k8s/observability/applications/kube-prometheus-stack/values.yaml
+          - $values/code/k8s/observability/kube-prometheus-stack/values.yaml
     - repoURL: https://github.com/sapienfrom2000s/proxmox-local.git
       targetRevision: HEAD
       ref: values
