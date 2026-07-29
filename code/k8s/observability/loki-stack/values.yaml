@@ -1,6 +1,7 @@
 grafana:
   enabled: false
 loki:
+  isDefault: false
   persistence:
     enabled: false
   service:
