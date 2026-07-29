@@ -1,6 +1,5 @@
 gateway:
-  metrics:
-    enabled: false
+  enabled: false
 chunksCache:
   enabled: false
 deploymentMode: Monolithic
