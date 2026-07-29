@@ -1,0 +1,12 @@
+grafana:
+  adminPassword: admin
+  ingress:
+    enabled: false
+  service:
+    type: ClusterIP
+prometheus:
+  service:
+    type: ClusterIP
+  prometheusSpec:
+    storageSpec:
+      emptyDir: {}

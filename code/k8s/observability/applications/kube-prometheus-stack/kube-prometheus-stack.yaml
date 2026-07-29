@@ -5,24 +5,16 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  source:
-    repoURL: https://prometheus-community.github.io/helm-charts
-    chart: kube-prometheus-stack
-    targetRevision: 87.21.0
-    helm:
-      values: |
-        grafana:
-          adminPassword: admin
-          ingress:
-            enabled: false
-          service:
-            type: ClusterIP
-        prometheus:
-          service:
-            type: ClusterIP
-          prometheusSpec:
-            storageSpec:
-              emptyDir: {}
+  sources:
+    - repoURL: https://prometheus-community.github.io/helm-charts
+      chart: kube-prometheus-stack
+      targetRevision: 87.21.0
+      helm:
+        valueFiles:
+          - $values/code/k8s/observability/applications/kube-prometheus-stack/values.yaml
+    - repoURL: https://github.com/sapienfrom2000s/proxmox-local.git
+      targetRevision: HEAD
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: observability
