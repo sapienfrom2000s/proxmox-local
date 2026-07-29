@@ -4,6 +4,8 @@ grafana:
     enabled: false
   service:
     type: ClusterIP
+  image:
+    tag: 11.5.2
 prometheus:
   service:
     type: ClusterIP
