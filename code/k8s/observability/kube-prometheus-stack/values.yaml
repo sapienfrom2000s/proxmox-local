@@ -4,8 +4,14 @@ grafana:
     enabled: false
   service:
     type: ClusterIP
-  image:
-    tag: 11.5.2
+  sidecar:
+    datasources:
+      enabled: false
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      url: http://loki-stack:3100
+      access: proxy
 prometheus:
   service:
     type: ClusterIP
