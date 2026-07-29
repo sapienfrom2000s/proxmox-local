@@ -12,6 +12,7 @@ spec:
     - "*.home"
     - "home"
     - "todo.home"
+    - "grafana.home"
   issuerRef:
     name: ca-issuer
     kind: ClusterIssuer
