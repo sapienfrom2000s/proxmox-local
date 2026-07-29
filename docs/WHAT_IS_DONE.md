@@ -129,3 +129,33 @@ Deliberately skipped.
 - Created detailed docs in `code/k8s/gateway/docs/`
 - Postmortem documenting issues encountered: cross-namespace routing blocked,
   wildcard cert matching failures, Firefox trust store isolation
+
+---
+
+## Phase 3: Observability
+
+### 3.1 — Telemetry pipeline (Prometheus + Grafana)
+
+- Deployed kube-prometheus-stack (v87.21.0) via ArgoCD app-of-apps pattern
+- Prometheus in-cluster with node_exporter DaemonSet on all 3 nodes
+- Grafana pinned to 11.5.2, ClusterIP service, admin password managed via values
+- Grafana datasource sidecar disabled; datasources provisioned manually:
+
+| Name       | Type | URL                                                   |
+| ---------- | ---- | ----------------------------------------------------- |
+| Prometheus | prom | `kube-prometheus-stack-prometheus.observability:9090` |
+| Loki       | loki | `loki:3100`                                           |
+
+- Prometheus storage: emptyDir (non-persistent for homelab)
+
+### 3.2 — Loki log aggregation
+
+- Migrated from deprecated `loki-stack` chart to community-maintained
+  `grafana-community/loki` chart (v18.5.4, Loki v3.7.4)
+- Deployment mode: Monolithic (single binary, 1 replica)
+- Filesystem storage, auth disabled, no persistent volumes
+- Disabled unnecessary components: gateway, chunks-cache, results-cache
+- Promtail deployed as separate ArgoCD Application (`grafana/promtail` v6.17.1),
+  pushes to `http://loki:3100/loki/api/v1/push`
+- Loki canary enabled for health verification, points directly to `loki:3100`
+- All components in `observability` namespace, managed via ArgoCD app-of-apps

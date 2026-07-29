@@ -36,10 +36,13 @@ via ReferenceGrant
 [ ] 2.4 Persistent Storage: - Longhorn / OpenEBS for persistent volumes
 
 PHASE 3: OBSERVABILITY
-----------------------------------------------------------------
+---------------------------------------------------------------
 
-[ ] 3.1 Telemetry pipeline: - Prometheus + Grafana OSS - node_exporter on all
-VMs (via Ansible) - track CPU throttling, memory pressure, iface drops
+[x] 3.1 Telemetry pipeline: - Prometheus + Grafana OSS via kube-prometheus-stack
+(ArgoCD app-of-apps) — node_exporter on all VMs (via DaemonSet),
+CPU/memory/network dashboards - Loki (grafana-community/loki chart) for log
+aggregation — monolithic mode, filesystem storage, auth disabled - Promtail
+DaemonSet for log shipping to Loki
 
 [ ] 3.2 Load test: - locust / ApacheBench from external laptop -> cluster
 
