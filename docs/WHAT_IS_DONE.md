@@ -159,3 +159,8 @@ Deliberately skipped.
   pushes to `http://loki:3100/loki/api/v1/push`
 - Loki canary enabled for health verification, points directly to `loki:3100`
 - All components in `observability` namespace, managed via ArgoCD app-of-apps
+
+### 3.3 — Traffic generator (locust)
+
+- Locust deployed as in-cluster pod generating synthetic traffic against cluster
+  workloads for observability validation

@@ -44,7 +44,8 @@ CPU/memory/network dashboards - Loki (grafana-community/loki chart) for log
 aggregation — monolithic mode, filesystem storage, auth disabled - Promtail
 DaemonSet for log shipping to Loki
 
-[ ] 3.2 Load test: - locust / ApacheBench from external laptop -> cluster
+[x] 3.2 Traffic generator: - locust deployed as in-cluster pod generating
+traffic against cluster workloads
 
 PHASE 4: CHAOS RESILIENCY
 ----------------------------------------------------------------
