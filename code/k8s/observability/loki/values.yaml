@@ -1,7 +1,7 @@
 gateway:
   enabled: false
 lokiCanary:
-  lokiurl: http://loki:3100
+  lokiurl: loki:3100
 chunksCache:
   enabled: false
 resultsCache:
