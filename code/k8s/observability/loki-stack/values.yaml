@@ -1,10 +1,13 @@
-grafana:
-  enabled: false
+deploymentMode: Monolithic
 loki:
-  isDefault: false
+  auth_enabled: false
+  commonConfig:
+    replication_factor: 1
+    path_prefix: /var/loki
+  storage:
+    type: filesystem
+  useTestSchema: true
+singleBinary:
+  replicas: 1
   persistence:
     enabled: false
-  service:
-    type: ClusterIP
-promtail:
-  enabled: true

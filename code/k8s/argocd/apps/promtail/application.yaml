@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: loki-stack
+  name: promtail
   namespace: argocd
 spec:
   project: default
   sources:
-    - repoURL: https://grafana-community.github.io/helm-charts
-      chart: loki
-      targetRevision: 18.5.4
+    - repoURL: https://grafana.github.io/helm-charts
+      chart: promtail
+      targetRevision: 6.17.1
       helm:
         valueFiles:
-          - $values/code/k8s/observability/loki-stack/values.yaml
+          - $values/code/k8s/observability/promtail/values.yaml
     - repoURL: https://github.com/sapienfrom2000s/proxmox-local.git
       targetRevision: HEAD
       ref: values
