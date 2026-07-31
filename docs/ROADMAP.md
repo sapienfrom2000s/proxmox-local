@@ -33,8 +33,6 @@ via Helm chart through ArgoCD - TLS termination for *.home on gateway
 (192.168.1.203) - todo.home routed to todo-api service - Cross-namespace routing
 via ReferenceGrant
 
-[ ] 2.4 Persistent Storage: - Longhorn / OpenEBS for persistent volumes
-
 PHASE 3: OBSERVABILITY
 ---------------------------------------------------------------
 
@@ -46,31 +44,3 @@ DaemonSet for log shipping to Loki
 
 [x] 3.2 Traffic generator: - locust deployed as in-cluster pod generating
 traffic against cluster workloads
-
-PHASE 4: CHAOS RESILIENCY
-----------------------------------------------------------------
-
-[ ] 4.1 Chaos experiment: - scripted hard-kill of a random worker node
-mid-load - verify via Grafana: failure detected, pods rescheduled, dead node
-stripped from proxy routing - MEASURE (don't assume zero) request disruption
-window
-
----
-
-PHASE 5: FUTURE EXPANSION (post-validation, additional hardware)
-----------------------------------------------------------------
-
-[ ] 5.1 Multi-node Proxmox cluster (Corosync + shared/replicated storage) once
-hardware allows
-
-[ ] 5.2 HA control plane (3-node etcd) instead of single CP node
-
-[ ] 5.3 Kubernetes NetworkPolicies (Cilium/Calico OSS core) for pod-level
-isolation -- extend the isolation story past the VM layer
-
-[ ] 5.4 True distributed storage fault domains across physical hosts (Longhorn
-replicas on separate machines)
-
-[ ] 5.5 Also revisit keepalived/VRRP or a second gateway once you have the
-hardware for it.
-================================================================
